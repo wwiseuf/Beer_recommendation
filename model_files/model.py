@@ -152,6 +152,9 @@ make_recommendation(
     mapper=beer_to_idx,
     n_recommendations=10)
 
+
+
+
 with open("model.bin", 'wb') as f_out:
     pickle.dump(model_knn, f_out) # write final_model in .bin file
     f_out.close()  # close the file 

@@ -20,12 +20,11 @@ def home():
 def predict():
 
     beer = request.get_json()
-
     print(beer)
 
     beer_recommendation = make_recommendation(beer, model) 
 
-    output = print(jsonify(beer_recommendation))
+    output = jsonify(beer_recommendation)
 
     return render_template('index.html', prediction_text= format(output))
 
