@@ -143,7 +143,7 @@ def make_recommendation(model_knn, data, mapper, fav_beer, n_recommendations):
     for i, (idx, dist) in enumerate(raw_recommends):
         print('{0}: {1}, with distance of {2}'.format(i+1, reverse_mapper[idx], dist))
 
-my_favorite = 'Smuttynose Octoberfest'
+my_favorite = 'Sierra Nevada'
 
 make_recommendation(
     model_knn=model_knn,
@@ -152,6 +152,8 @@ make_recommendation(
     mapper=beer_to_idx,
     n_recommendations=10)
 
-pickle.dump(model_knn, open('model.pkl','wb'))
+with open("model.bin", 'wb') as f_out:
+    pickle.dump(model_knn, f_out) # write final_model in .bin file
+    f_out.close()  # close the file 
 
-model = pickle.load(open('model.pkl','rb'))
+

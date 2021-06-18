@@ -2,6 +2,8 @@ import pandas as pd
 from sqlalchemy import create_engine
 import numpy as np
 import pickle
+from model_files.model import make_recommendation
+
 
 #flask setup
 from flask import Flask, jsonify, render_template, request, flash, redirect
@@ -17,22 +19,16 @@ def home():
 @app.route('/predict',methods=['POST'])
 def predict():
 
-    int_features = [int(x) for x in request.form.values()]
-    final_features = [np.array(int_features)]
-    
+    beer = request.get_json()
 
-    output = final_features[0]
+    print(beer)
+
+    beer_recommendation = make_recommendation(beer, model) 
+
+    output = print(jsonify(beer_recommendation))
 
     return render_template('index.html', prediction_text= format(output))
 
-@app.route('/results',methods=['POST'])
-def results():
-
-    data = request.get_json(force=True)
-    prediction = model([np.array(list(data.values()))])
-
-    output = prediction[0]
-    return jsonify(output)
 
 @app.route("/beermap")
 def beermap():
